@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{array,booktabs,arydshln,xcolor,siunitx}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\sisetup{
+  round-mode = places,
+  round-precision = 2,
+}
+\begin{document}
+\newcommand\VRule[1][\arrayrulewidth]{\vrule width #1}
+\ttfamily
+
+\Huge \begin{center}
+\vspace*{-3in}
+\textbf{Invoice}
+\end{center}
+\normalsize
+
+\begin{figure}
+  \includegraphics[width=.5in]{ logo.png }
+\end{figure}
+
+BYTETOOLS TECHNOLOGIES INC.\\UNIT 501\\611 EDMONTON TRAIL NE\\CALGARY AB T2E 3J3 \\
+
+\Large
+\textbf{Bill To}\\
+\normalsize
+BAHN PROJECTS\\PO BOX 12062 RPO COPPERFIELD\\CALGARY AB T2Z 1H4 \\
+
+\begin{tabular}{
+  |c|c|S|S|S|
+}
+\specialrule{.5pt}{0pt}{0pt}
+\sffamily \textbf{SKU} &
+\sffamily \textbf{Description} &
+\sffamily \textbf{Cost} &
+\sffamily \textbf{Quantity} &
+\sffamily \textbf{Total} \\
+\specialrule{.5pt}{0pt}{0pt}
+
+SCRIBE &
+Transcription for CMPT 215 (week 5) &
+35.0 &
+12.0 &
+420.0\\
+\specialrule{.5pt}{0pt}{0pt}
+
+SCRIBE &
+Transcription for CMPT 218 (week 5) &
+35.0 &
+2.0 &
+70.0\\
+\specialrule{.5pt}{0pt}{0pt}
+
+SCRIBE &
+Transcription for LING 200 (week 5) &
+35.0 &
+5.0 &
+175.0\\
+\specialrule{.5pt}{0pt}{0pt}
+
+
+\specialrule{1pt}{0pt}{0pt}
+& Subtotal & & & 665.0 \\
+\specialrule{1pt}{0pt}{0pt}
+& Tax & GST & & 33.25 \\
+\specialrule{1pt}{0pt}{0pt}
+& Total & & & 698.25 \\
+\specialrule{.5pt}{0pt}{0pt}
+
+\end{tabular}
+
+\end{document}

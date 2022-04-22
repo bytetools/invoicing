@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{array,booktabs,arydshln,xcolor,siunitx}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tabularx}
+\sisetup{
+  round-mode = places,
+  round-precision = 2,
+}
+\begin{document}
+\newgeometry{left=15mm, right=15mm, top=10mm}
+\newcommand\VRule[1][\arrayrulewidth]{\vrule width #1}
+\ttfamily
+
+\Huge \begin{center}
+\textbf{ {{ comapny_name }} }
+\includegraphics[width=.5in]{ {{ company_logo_path }} }
+\end{center}
+\normalsize
+\begin{center}
+\begin{tabularx}{\linewidth}{c|c}
+\textbf{FROM} & \textbf{BILL TO} \\
+{{ company_address }} & {{ client_address }}
+\end{tabularx}
+\end{center}
+{{ company_address }} \\\\
+\Large
+\textbf{BILL TO} \\\\
+\normalsize
+{{ client_address }} \\\\
+\Large
+\textbf{ITEMS}
+\normalsize\\
+
+\begin{tabularx}{\linewidth}{
+  |c|c|S|S|S|
+}
+\specialrule{.5pt}{0pt}{0pt}
+\sffamily \textbf{SKU} &
+\sffamily \textbf{Description} &
+\sffamily \textbf{Cost} &
+\sffamily \textbf{Quantity} &
+\sffamily \textbf{Total} \\
+\specialrule{.5pt}{0pt}{0pt}
+{% for item in items %}
+{{ item.sku }} &
+{{ item.description }} &
+{{ item.cost }} &
+{{ item.quantity }} &
+{{ item.total }}\\
+\specialrule{.5pt}{0pt}{0pt}
+{% endfor %}
+
+\specialrule{1pt}{0pt}{0pt}
+& Subtotal & & & {{ total }} \\
+\specialrule{1pt}{0pt}{0pt}
+& Tax & GST & & {{ tax }} \\
+\specialrule{1pt}{0pt}{0pt}
+& Total & & & {{ final }} \\
+\specialrule{.5pt}{0pt}{0pt}
+
+\end{tabularx}
+
+\end{document}
