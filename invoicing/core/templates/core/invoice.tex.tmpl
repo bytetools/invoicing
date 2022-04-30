@@ -1,63 +1,75 @@
 \documentclass{article}
-\usepackage{array,booktabs,arydshln,xcolor,siunitx}
+\usepackage{array,booktabs,arydshln,xcolor}
+\usepackage[
+	table-number-alignment=center,
+	round-integer-to-decimal,
+	round-mode = places,
+	round-precision = 2,
+	output-decimal-marker={.},
+]{siunitx}
 \usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{tabularx}
-\sisetup{
-  round-mode = places,
-  round-precision = 2,
-}
+\usepackage{ragged2e}
 \begin{document}
 \newgeometry{left=15mm, right=15mm, top=10mm}
+\newcommand*\sepline{%
+  \begin{center}
+    \rule[1ex]{\textwidth}{.5pt}
+  \end{center}}
 \newcommand\VRule[1][\arrayrulewidth]{\vrule width #1}
 \ttfamily
 
-\Huge \begin{center}
-\textbf{ {{ comapny_name }} }
+\begin{center}
+\Huge \textbf{ {{ company_name }} }\\
 \includegraphics[width=.5in]{ {{ company_logo_path }} }
 \end{center}
+\textbf{ {{ comapny_name }} }
 \normalsize
-\begin{center}
-\begin{tabularx}{\linewidth}{c|c}
-\textbf{FROM} & \textbf{BILL TO} \\
-{{ company_address }} & {{ client_address }}
+\textbf{ {{ company_name }} }
+\hfill
+\textbf{ {{ client_name }} }\\
+{% for addr_line in address_lines %}
+{{ addr_line.0 }} \hfill {{ addr_line.1 }}
+{% endfor %}
+
+\sepline
+\begin{tabularx}{\linewidth}{
+	lr
+}
+\large \textbf{ Date } & \large {{ invoice_date }}\\
+\large \textbf{ Invoice \# } & \large {{ invoice_number }}\\
 \end{tabularx}
-\end{center}
-{{ company_address }} \\\\
-\Large
-\textbf{BILL TO} \\\\
-\normalsize
-{{ client_address }} \\\\
-\Large
-\textbf{ITEMS}
-\normalsize\\
+\sepline
 
 \begin{tabularx}{\linewidth}{
-  |c|c|S|S|S|
+  |c|c|S|S[round-precision=0]|S|X|
 }
 \specialrule{.5pt}{0pt}{0pt}
 \sffamily \textbf{SKU} &
 \sffamily \textbf{Description} &
-\sffamily \textbf{Cost} &
+\sffamily \textbf{Unit Price} &
 \sffamily \textbf{Quantity} &
-\sffamily \textbf{Total} \\
+\sffamily \textbf{Cost} &
+\hfill \sffamily \textbf{Notes} \\
 \specialrule{.5pt}{0pt}{0pt}
 {% for item in items %}
 {{ item.sku }} &
 {{ item.description }} &
-{{ item.cost }} &
+\${{ item.cost }} &
 {{ item.quantity }} &
-{{ item.total }}\\
+\${{ item.total }} &
+{{ item.notes }} \\
 \specialrule{.5pt}{0pt}{0pt}
 {% endfor %}
 
 \specialrule{1pt}{0pt}{0pt}
-& Subtotal & & & {{ total }} \\
+& Subtotal & & & \${{ total }} & \\
 \specialrule{1pt}{0pt}{0pt}
-& Tax & GST & & {{ tax }} \\
+& GST ({{ tax_identifier }}) & & & \${{ tax }} & \\
 \specialrule{1pt}{0pt}{0pt}
-& Total & & & {{ final }} \\
+& Total & & & \${{ final }} & \\
 \specialrule{.5pt}{0pt}{0pt}
 
 \end{tabularx}

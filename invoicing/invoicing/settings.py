@@ -126,3 +126,4 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PDF_AND_LATEX_ROOT = "./pdf_latex"
+TAX_IDENTIFIER = "CR0000000000011"

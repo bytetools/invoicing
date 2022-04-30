@@ -57,3 +57,4 @@ class InvoiceItem(models.Model):
   cost = models.FloatField(editable=False)
   quantity = models.FloatField(editable=False)
   total = models.FloatField(editable=False)
+  notes = models.CharField(max_length=256, blank=True, null=False, default="")
