@@ -1,0 +1,114 @@
+/* GLOBAL CSS */
+.bold {
+  font-weight: bold;
+}
+.italic {
+  font-style: italic;
+}
+/* END OF GLOBAL CSS */
+
+/* TABLE CSS */
+.edit-table {
+  border-collapse: collapse;
+}
+.edit-table td,
+.edit-table th {
+  border: 1px solid black;
+}
+/* END OF TABLE CSS */
+
+/* INVOICE CSS */
+.invoice-wrapper {
+  font-family: monospace;
+  width: 800px;
+  margin: auto;
+  padding: 0px;
+}
+.invoice-wrapper hr {
+  margin: 16px 0px;
+}
+.invoice-wrapper label {
+  font-weight: bold;
+}
+.invoice-header {
+  display: grid;
+  grid-template-columns: 75% 25%;
+}
+.invoice-header div {
+  display: inline-block;
+}
+.invoice-image-wrapper {
+  width: 2.5%;
+  margin: auto;
+  display: inline-block;
+}
+.invoice-image-wrapper img {
+  width: 40px;
+}
+
+.invoice-wrapper address {
+  font-style: normal;
+}
+
+.invoice-wrapper h2 {
+  text-align: center;
+}
+
+.invoice-contractor-name label {
+  text-align: center;
+}
+
+.invoice-title {
+  text-align: center;
+}
+
+.invoice-addresses {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.invoice-client-address {
+  text-align: right;
+}
+.invoice-info {
+  display: grid;
+  grid-template-columns: repeat(2, 7em);
+}
+.invoice-finals-and-taxes {
+  display: grid;
+  grid-template-columns: 22em 10em;
+}
+
+.invoice-items-header {
+  text-align: center;
+}
+
+.invoice-date,
+.invoice-num {
+  text-align: right;
+}
+
+.invoice-items table {
+  border-collapse: collapse;
+  width: 95%;
+  margin: auto;
+}
+.invoice-items table td,
+.invoice-items table th {
+  border: 1px solid black;
+}
+
+/* this makes monetary units aligned inside the table */
+.right {
+  text-align: right;
+}
+.left {
+  text-align: left;
+}
+/* center other text in the table */
+.invoice-item-sku,
+.invoice-item-description,
+.invoice-item-quantity {
+  text-align: center;
+}
+
+/* END OF INVOICE CSS */

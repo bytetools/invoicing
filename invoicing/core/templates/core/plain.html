@@ -1,0 +1,11 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include "core/head.html" %}
+    {% block extrahead %}{% endblock %}
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>

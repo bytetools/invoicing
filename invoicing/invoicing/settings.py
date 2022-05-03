@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "helcim",
     "core",
 ]
 
@@ -81,7 +82,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -119,6 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -126,4 +127,21 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PDF_AND_LATEX_ROOT = "./pdf_latex"
-TAX_IDENTIFIER = "CR0000000000011"
+
+# set up invoice information which is considered static in the template; this can be changed for various locales, languages, etc.
+INVOICE_VARS = {
+  "sku_label": "SKU",
+  "description_label": "Description",
+  "unit_price_label": "Unit Price",
+  "quantity_label": "Quantity",
+  "cost_label": "Cost",
+  "notes_label": "Notes",
+  "subtotal_label": "Subtotal",
+  "total_label": "Total",
+  "invoice_number_label": "Invoice #",
+  "date_label": "Date",
+  "contractor_heading": "Contractor",
+  "client_heading": "Customer",
+  "invoice_label": "Invoice",
+  "invoice_items_label": "Items",
+}

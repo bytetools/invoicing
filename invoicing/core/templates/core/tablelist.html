@@ -1,0 +1,43 @@
+{% extends "core/base.html" %}
+{% block content %}
+<table class="edit-table">
+  <thead>
+    {% for header in headers %}
+      <th>{{ header }}</th>
+    {% endfor %}
+    <th>Save/Create</th>
+    <th>Copy</th>
+    <th>Delete</th>
+  </thead>
+  <tbody>
+    {% for item in items %}
+      <tr>
+      {% for field in item %}
+        <td>{{ field }}</td>
+      {% endfor %}
+      <td>
+        {% if item.instance.id %}
+          <input type="hidden" name="id" value="{{ item.instance.id }}">
+        {% endif %}
+        {% csrf_token %}
+        {% if item.instance.id %}
+          <input type="submit" value="Save">
+        {% else %}
+          <input type="submit" value="Create">
+        {% endif %}
+      </td>
+      <td>
+        {% if item.instance.id %}
+          <input type="submit" value="Copy">
+        {% endif %}
+      </td>
+      <td>
+        {% if item.instance.id %}
+          <input type="submit" value="Delete">
+        {% endif %}
+      </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

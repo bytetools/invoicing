@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include "core/head.html" %}
+    {% block extrahead %}{% endblock %}
+  </head>
+  <body>
+    {% include "core/nav.html" %}
+    <main>
+      {% include "core/messages.html" %}
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

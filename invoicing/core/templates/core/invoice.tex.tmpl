@@ -1,3 +1,4 @@
+{% load tex_safe %}
 \documentclass{article}
 \usepackage{array,booktabs,arydshln,xcolor}
 \usepackage[
@@ -24,35 +25,36 @@
 \begin{center}
 \Huge \textbf{ {{ company_name }} }\\
 \includegraphics[width=.5in]{ {{ company_logo_path }} }
-\end{center}
-\textbf{ {{ comapny_name }} }
-\normalsize
-\textbf{ {{ company_name }} }
+\end{center}\textbf{{"{"}}{{ comapny_name }}{{"}"}}\normalsize\\
+\textbf{{"{"}}{{ company_name }}{{"}"}}
 \hfill
 \textbf{ {{ client_name }} }\\
-{% for addr_line in address_lines %}
-{{ addr_line.0 }} \hfill {{ addr_line.1 }}
-{% endfor %}
+{% for addr_line in address_lines %}{{ addr_line.0 }} \hfill {{ addr_line.1 }}\\ {% endfor %}
 
 \sepline
 \begin{tabularx}{\linewidth}{
 	lr
 }
-\large \textbf{ Date } & \large {{ invoice_date }}\\
-\large \textbf{ Invoice \# } & \large {{ invoice_number }}\\
+\large \textbf{ {{ date_label|tex_safe }} } & \large {{ invoice_date }}\\
+\large \textbf{ {{ invoice_number_label|tex_safe }} } & \large {{ invoice_number }}\\
 \end{tabularx}
 \sepline
+
+\Large \begin{center}
+\textbf{ {{ invoice_items_label }} }\\
+\end{center}
+\normalsize
 
 \begin{tabularx}{\linewidth}{
   |c|c|S|S[round-precision=0]|S|X|
 }
 \specialrule{.5pt}{0pt}{0pt}
-\sffamily \textbf{SKU} &
-\sffamily \textbf{Description} &
-\sffamily \textbf{Unit Price} &
-\sffamily \textbf{Quantity} &
-\sffamily \textbf{Cost} &
-\hfill \sffamily \textbf{Notes} \\
+\sffamily \textbf{ {{ sku_label }} } &
+\sffamily \textbf{ {{ description_label }} } &
+\sffamily \textbf{ {{ unit_price_label }} } &
+\sffamily \textbf{ {{ quantity_label }} } &
+\sffamily \textbf{ {{ cost_label }} } &
+\hfill \sffamily \textbf{ {{ notes_label }} } \\
 \specialrule{.5pt}{0pt}{0pt}
 {% for item in items %}
 {{ item.sku }} &
@@ -63,15 +65,12 @@
 {{ item.notes }} \\
 \specialrule{.5pt}{0pt}{0pt}
 {% endfor %}
-
-\specialrule{1pt}{0pt}{0pt}
-& Subtotal & & & \${{ total }} & \\
-\specialrule{1pt}{0pt}{0pt}
-& GST ({{ tax_identifier }}) & & & \${{ tax }} & \\
-\specialrule{1pt}{0pt}{0pt}
-& Total & & & \${{ final }} & \\
-\specialrule{.5pt}{0pt}{0pt}
-
 \end{tabularx}
-
+\begin{tabularx}{\linewidth}{lr}
+{{ subtotal_label }} & \${{ total|floatformat:2 }}\\
+{% for tax in taxes %}
+{{ tax.tax_type|upper }} {{ tax.percentage|floatformat:0 }}\% ({{ tax.identifier }}) & \${{ tax.cost|floatformat:2 }}\\
+{% endfor %}
+\textbf{{"{"}}{{ total_label }} {{"}"}} & \textbf{ \${{ final|floatformat:2 }} }\\
+\end{tabularx}
 \end{document}
