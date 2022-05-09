@@ -1,0 +1,25 @@
+<h2 class="invoice-items-header">{{ invoice_items_label }}</h2>
+<div class="invoice-items">
+  <table>
+    <thead>
+      <th>SKU</th>
+      <th>Description</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th>Cost</th>
+      <th>Notes</th>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr class="invoice-item">
+          <td class="invoice-item-sku">{{ item.sku }}</td>
+          <td class="invoice-item-description">{{ item.description }}</td>
+          <td class="invoice-item-cost right">${{ item.cost|floatformat:2 }}</td>
+          <td class="invoice-item-quantity">{{ item.quantity|floatformat:0 }}</td>
+          <td class="invoice-item-total right">${{ item.total|floatformat:2 }}</td>
+          <td class="invoice-item-notes">{{ item.notes }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

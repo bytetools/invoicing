@@ -1,0 +1,10 @@
+{% load percentage %}{{ payment_header|upper }}
+
+Payment accepted by:
+- Online Debit: {{ pay_debit_url }}
+- Online Credit ({{ credit_surcharge_percentage|percentage }}% surcharge): {{ pay_credit_url }}
+- Manual e-Transfer to {{ etf_email }}
+- Cheque addressed to:
+{{ company_name }}
+{% for addr_line,_ in address_lines %}{{ addr_line }}
+{% endfor %}

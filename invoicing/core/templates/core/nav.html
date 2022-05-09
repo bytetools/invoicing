@@ -1,10 +1,7 @@
 <nav>
-  <a href="{% url "new_invoice" %}">New Invoice</a>
-  <a href="{% url 'list' %}">Invoice List</a>
-  <a href="{% url "new_client" %}">New Client</a>
-  <a href="{% url "new_address" %}">New Address</a>
-  <a href="{% url "new_city" %}">New City</a>
-  <a href="{% url "new_region" %}">New Region</a>
-  <a href="{% url "new_country" %}">New Country</a>
-  <a href="{% url "new_tax" %}">New Tax</a>
+  {% for model_name in model_names %}
+    <a href="{% url 'read_model' model_name %}">{{ model_name }}</a><br>
+  {% endfor %}
+  <a href="{% url 'admin:login' %}">Admin</a>
+  <a href="{% url "login" %}">Login</a>
 </nav>

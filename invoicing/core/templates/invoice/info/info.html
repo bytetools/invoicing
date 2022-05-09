@@ -1,0 +1,33 @@
+<h2>{{ invoice_info_header }}</h2>
+<div class="invoice-info">
+  <label for="invoice-date">Date</label>
+  <span id="invoice-date" class="invoice-date">{{ invoice_date }}</span>
+  <label for="invoice-num">Invoice #</label>
+  <span id="invoice-num" class="invoice-num">{{ invoice_number }}</span>
+  <label for="invoice-customer-num">Customer #</label>
+  <span id="invoice-customer-num" class="right">{{ customer.id }}</span>
+  <label for="invoice-due-date">Due date</label>
+  <span id="invoice-due-date" class="right">{{ invoice_due_date }}</span>
+</div>
+<hr>
+<div class="invoice-addresses">
+  <div>
+    <h3 class="invoice-contractor-heading">{{ contractor_heading }}</h3>
+    <address>
+    <span class="invoice-contractor-name bold">{{ company_name }}</span>
+    <br>
+    {% for addr_line,_ in address_lines %}
+      {{ addr_line }}<br>
+    {% endfor %}
+    </address>
+  </div>
+  <div class="invoice-client-address">
+    <h3 class="invoice-client-heading">{{ client_heading }}</h3>
+    <address>
+    <span class="invoice-client-name bold">{{ client_name }}</span><br>
+    {% for _,addr_line in address_lines %}
+      {{ addr_line }}<br>
+    {% endfor %}
+    </address>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+{% load percentage %}{% load dollar %}{{ total_label|upper }}
+
+{{ subtotal_label }}: ${{ total|dollar }}
+{% if surcharges %}{{ surcharges_label }}:
+{% for surcharge in surcharges %}{% if surcharge.charge_type == "P" %}    {{ surcharge.name }} (+{{ surcharge.amount|percentage }}%): +${{ surcharge.cost|dollar }}{% else %}    {{ surcharge.name }}: +${{ surcharge.cost|dollar }}{% endif %}
+{% endfor %}{% endif %}{% if discounts %}{{ discount_label }}:
+{% for discount in discounts %}{% if discount.charge_type == "P" %}    {{ discount.name }} (-{{ discount.amount|percentage }}%): -${{ discount.cost|dollar }}{% else %}    {{ discount.name }}: -${{ discount.cost|dollar }}{% endif %}
+{% endfor %}{% endif %}{% if taxes %}{{ taxes_label }}:{% for tax in taxes %}
+    {{ tax.tax_type }} {{ tax.percentage|percentage }}% ({{ tax.identifier }}): +${{ tax.cost|dollar }} {% endfor %}{% endif %}
+Total: ${{ final|dollar }}

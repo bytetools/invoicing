@@ -1,0 +1,36 @@
+{% load percentage %}{% load dollar %}\begin{center}
+\Large
+\textbf{{"{"}}{{ total_label }} }
+\normalsize
+\end{center}
+\normalsize\begin{tabularx}{\linewidth}{p{7cm}r}
+\textbf{{"{"}}{{ subtotal_label }} } & \${{ total|dollar }}\\
+{% if surcharges %}
+\textbf{{"{"}}{{ surcharges_label }} } & \\
+{% for surcharge in surcharges %}
+{% if surcharge.charge_type == "P" %}
+\quad \textbf{ {{ surcharge.name }} (+{{ surcharge.amount|percentage }}\%) } & +\${{ surcharge.cost|dollar }}\\
+{% else %}
+\quad \textbf{ {{ surcharge.name }} } & +\${{ surcharge.cost|dollar }}\\
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if discounts %}
+\textbf{{"{"}}{{ discount_label }} } & \\
+{% for discount in discounts %}
+{% if discount.charge_type == "P" %}
+\quad \textbf{ {{ discount.name }} (-{{ discount.amount|percentage }}\%) } & -\${{discount.cost|dollar}}\\
+{% else %}
+\quad \textbf{ {{ discount.name }} } & -\${{ discount.cost|dollar }}\\
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if taxes %}
+\textbf{{"{"}}{{ taxes_label }} } & \\
+{% for tax in taxes %}
+\quad \textbf{ {{ tax.tax_type|upper }} {{ tax.percentage|percentage }}\% ({{ tax.identifier }}) } & \${{ tax.cost|dollar }}\\
+{% endfor %}
+{% endif %}
+\textbf{{"{"}}{{ total_label }} {{"}"}} & \textbf{ \${{ final|dollar }} }\\
+\end{tabularx}
+\normalsize

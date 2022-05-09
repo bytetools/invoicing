@@ -1,0 +1,14 @@
+{% load tex_safe %}
+\begin{tabularx}{\linewidth}{lr}
+\large\textbf{{"{"}}{{ date_label|tex_safe }} } & \large {{ invoice_date }}\\
+\large\textbf{{"{"}}{{ invoice_number_label|tex_safe }} } & \large {{ invoice_number }}\\
+\large\textbf{{"{"}}{{ customer_number_label|tex_safe }} } & \large {{ customer.id }}\\
+\large\textbf{{"{"}}{{ due_date_label|tex_safe }} } & \large {{ invoice_due_date }}
+\end{tabularx}
+\sepline\normalsize
+\Large \textbf{{"{"}}{{ contractor_heading}} } \hfill \textbf{{"{"}}{{ client_heading }}{{"}"}}\\\\\normalsize
+{{ company_name }}
+\hfill
+{{ client_name }}\\
+{% for addr_line in address_lines %}{{ addr_line.0 }} \hfill {{ addr_line.1 }}\\{% endfor %}
+\normalsize

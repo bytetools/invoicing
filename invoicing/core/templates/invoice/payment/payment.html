@@ -1,0 +1,17 @@
+{% load percentage %}
+<h2>{{ payment_header }}</h2>
+<div class="invoice-pay-methods">
+  Invoice payable via: <ul class="semantic">
+    <li><a href="{{ pay_debit_url }}">Online Debit</a></li>
+    <li><a href="{{ pay_credit_url }}">Online Credit ({{ credit_surcharge_percentage|percentage }}% surcharge)</a></li>
+    <li><span class="italic">Interac</span> e-Transfer to <span class="invoice-etransfer-email">{{ etf_email }}</span></li>
+    <li>Cheque addressed to:
+    <address>
+    {{ company_name }}<br>
+    {% for addr_line,_ in address_lines %}
+      {{ addr_line }}<br>
+    {% endfor %}
+    </address>
+    </li>
+  </ul>
+</div>

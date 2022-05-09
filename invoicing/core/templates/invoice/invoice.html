@@ -1,0 +1,17 @@
+{% extends "core/plain.html" %}
+{% load static %}
+{% block title %}
+{{ company_name }} | Invoice #{{ invoice_number }}
+{% endblock %}
+{% block content %}
+<div class="invoice-wrapper">
+{% include "invoice/header/header.html" %}
+{% include "invoice/info/info.html" %}
+<hr>
+{% include "invoice/items/items.html" %}
+<hr>
+{% include "invoice/total/total.html" %}
+<hr>
+{% include "invoice/payment/payment.html" %}
+</div>
+{% endblock %}

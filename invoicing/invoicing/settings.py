@@ -10,11 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
+import dotenv
+from dotenv import load_dotenv, find_dotenv
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Add environment variables
+load_dotenv(find_dotenv())
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -27,17 +33,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    "phonenumber_field",
+    "accounts",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "helcim",
+    "payment",
     "core",
 ]
 
@@ -64,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "core.context_proccessors.nav",
             ],
         },
     },
@@ -105,21 +113,23 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
+# User model
+AUTH_USER_MODEL = "accounts.InvoiceUser"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = "static/"
+
+# default URLs
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -128,7 +138,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PDF_AND_LATEX_ROOT = "./pdf_latex"
 
+# base url for url generation in emails, pdfs and HTML invoices. NO LEADING SLASH
+BASE_URL = "http://localhost:8000"
+
+# credit surcharge due to fees: this is set to 3% as that is just over the paypal/stripe/square fee schedule for credit cards (2.90% as of May 2022)
+# NOTE: helcim, which is the payment system used by defualt for this project, uses the "interchange plus" fee structure which makes it just over 2% -- around 2.35% +/-0.5% as of May 2022
+CREDIT_SURCHARGE = 0.03
+
 # set up invoice information which is considered static in the template; this can be changed for various locales, languages, etc.
+ETF_EMAIL = "payments@example.com"
 INVOICE_VARS = {
   "sku_label": "SKU",
   "description_label": "Description",
@@ -139,9 +157,24 @@ INVOICE_VARS = {
   "subtotal_label": "Subtotal",
   "total_label": "Total",
   "invoice_number_label": "Invoice #",
-  "date_label": "Date",
+  "customer_number_label": "Customer #",
+  "due_date_label": "Due Date",
+  "date_label": "Date Issued",
   "contractor_heading": "Contractor",
   "client_heading": "Customer",
   "invoice_label": "Invoice",
   "invoice_items_label": "Items",
+  "discount_label": "Discounts",
+  "total_after_discounts_label": "Total after discounts",
+  "taxes_label": "Taxes",
+  "invoice_info_header": "Info",
+  "payment_header": "Payment",
+  "surcharges_label": "Surcharges",
+  "etf_email": ETF_EMAIL,
 }
+
+# Helcim config, use .env to set these
+HELCIM_JS_CONFIG = os.environ["HELCIM_JS_CONFIG"]
+HELCIM_API_TOKEN = os.environ["HELCIM_API_TOKEN"]
+# set to 0 to run live (production) charges
+HELCIM_TEST = "1"

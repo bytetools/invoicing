@@ -1,0 +1,12 @@
+{% load percentage %}
+{% load dollar %}
+<label class="invoice-discounts-label">{{ discount_label }}</label>
+<span></span>
+{% for discount in discounts %}
+  {% if discount.charge_type == "P" %}
+    <label class="invoice-discount-label" for="invoice-discount-{{ discount.uuid }}">&nbsp;&nbsp;{{ discount.name }} (-{{ discount.amount|percentage }}%)</label>
+  {% else %}
+    <label class="invoice-discount-label" for="invoice-discount-{{ discount.uuid }}">&nbsp;&nbsp;{{ discount.name }}</label>
+  {% endif %}
+  <span class="invoice-discount-amount right" id="invoice-discount-{{ discount.name }}">-${{ discount.cost|dollar }}</span>
+{% endfor %}

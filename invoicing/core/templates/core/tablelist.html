@@ -1,4 +1,5 @@
 {% extends "core/base.html" %}
+{% load model_name %}
 {% block content %}
 <table class="edit-table">
   <thead>
@@ -6,34 +7,36 @@
       <th>{{ header }}</th>
     {% endfor %}
     <th>Save/Create</th>
-    <th>Copy</th>
     <th>Delete</th>
   </thead>
   <tbody>
     {% for item in items %}
       <tr>
-      {% for field in item %}
-        <td>{{ field }}</td>
+      {% if item.update_form.instance.id %}
+        <form method="POST" action="{% url "update_model" item.update_form.instance|model_name item.update_form.instance.uuid %}">
+      {% else %}
+        <form method="POST" action="{% url "create_model" item.update_form.instance|model_name %}">
+      {% endif %}
+      {% for field in item.update_form.visible_fields %}
+        <td>{{ field.errors }} {{ field }}</td>
       {% endfor %}
       <td>
-        {% if item.instance.id %}
-          <input type="hidden" name="id" value="{{ item.instance.id }}">
-        {% endif %}
         {% csrf_token %}
-        {% if item.instance.id %}
+        {{ item.update_form.uuid }}
+        {% if item.update_form.instance.id %}
           <input type="submit" value="Save">
         {% else %}
           <input type="submit" value="Create">
         {% endif %}
       </td>
+      </form>
       <td>
-        {% if item.instance.id %}
-          <input type="submit" value="Copy">
-        {% endif %}
-      </td>
-      <td>
-        {% if item.instance.id %}
-          <input type="submit" value="Delete">
+        {% if item.update_form.instance.id %}
+          <form method="POST" action="{% url "delete_model" item.update_form.instance|model_name item.update_form.instance.uuid %}">
+            {% csrf_token %}
+            {{ item.delete_form }}
+            <input type="submit" value="Delete">
+          </form>
         {% endif %}
       </td>
       </tr>

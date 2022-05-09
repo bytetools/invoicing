@@ -1,0 +1,12 @@
+{% load percentage %}\normalsize\begin{center}
+\Large\textbf{{"{"}}{{ payment_header }} }
+\end{center}
+Invoice payable via:
+\begin{itemize}
+\item\href{{"{"}}{{ pay_debit_url }}{{"}"}}{Online Debit}
+\item\href{{"{"}}{{ pay_credit_url }}{{"}"}}{Online Credit ({{ credit_surcharge_percentage|percentage }}\% Surcharge)}
+\item Manual e-Transfer to {{ etf_email }}
+\item Cheque addressed to:\\
+{% for addr_line,_ in address_lines %}{{ addr_line }}\\{% endfor %}
+\end{itemize}
+\normalsize

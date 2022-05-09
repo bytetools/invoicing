@@ -1,0 +1,5 @@
+{% include "invoice/header/header.txt" %}
+{% include "invoice/info/info.txt" %}
+{% include "invoice/items/items.txt" %}
+{% include "invoice/total/total.txt" %}
+{% include "invoice/payment/payment.txt" %}

@@ -1,0 +1,8 @@
+{% load percentage %}
+{% load dollar %}
+<label for="invoice-taxes-label">Taxes</label>
+<span></span>
+{% for tax in taxes %}
+  <label for="invoice-{{ tax.tax_type|lower }}">&nbsp;&nbsp;{{ tax.tax_type|upper }} {{ tax.percentage|percentage }}% ({{ tax.identifier }})</label>
+  <span id="invoice-{{ tax.tax_type|lower }}" class="invoice-{{ tax.tax_type|lower }} right">+${{ tax.cost|dollar }}</span>
+{% endfor %}

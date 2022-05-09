@@ -1,0 +1,17 @@
+{% load dollar %}
+<h2 class="invoice-total-header">{{ total_header }}</h2>
+<div class="invoice-finals-and-taxes">
+  <label for="invoice-total">{{ subtotal_label }}</label>
+  <span id="invoice-total" class="invoice-total right">${{ total|dollar }}</span>
+  {% if surcharges %}
+    {% include "invoice/total/surcharges/surcharges.html" %}
+  {% endif %}
+  {% if discounts %}
+    {% include "invoice/total/discounts/discounts.html" %}
+  {% endif %}
+  {% if taxes %}
+    {% include "invoice/total/taxes/taxes.html" %}
+  {% endif %}
+  <label for="invoice-final">{{ total_label }}</label>
+  <span id="invoice-final" class="invoice-final total right bold">${{ final|dollar }}</span>
+</div>

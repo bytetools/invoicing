@@ -1,3 +1,7 @@
 django==4.0.1
+# for phone numbers
+django-phonenumber-field
+phonenumbers
+# for deployment
 uwsgi
-git+https://github.com/bytetools/django-helcim@master#egg=django-helcim
+mysqlclient

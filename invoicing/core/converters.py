@@ -1,39 +1,33 @@
 import re
-from core.models import Product, Invoice
-from core.forms import ProductForm, InvoiceForm
-
-ACTIONS = [
-  "list",
-  "new",
-  "copy",
-  "delete"
-]
+from core.models import Product, Invoice, InvoiceItem, Tax, Address
+from core.forms import ProductForm, InvoiceForm, InvoiceItemForm, TaxForm, AddressForm, CountryForm, RegionForm, MunicipalityForm
+from accounts.models import Country, Region, Municipality
 
 MODELS = [
   Product,
-  Invoice
+  InvoiceItem,
+  Invoice,
+  Tax,
+  Address,
+  Country,
+  Region,
+  Municipality
 ]
 
 MODEL_FORMS = [
   ProductForm,
-  InvoiceForm
+  InvoiceItemForm,
+  InvoiceForm,
+  TaxForm,
+  AddressForm,
+  CountryForm,
+  RegionForm,
+  MunicipalityForm
 ]
 
 MODEL_NAMES = [x.__name__.lower() for x in MODELS]
 MODEL_NAME_TO_MODEL = dict(zip(MODEL_NAMES, MODELS))
 MODEL_NAME_TO_MODEL_FORM = dict(zip(MODEL_NAMES, MODEL_FORMS))
-
-class ActionConverter:
-    _actions = "|".join(ACTIONS)
-    regex = f"({_actions})"
-
-    def to_python(self, value):
-        result = re.match(self.regex, value)
-        return result.group() if result is not None else ""
-
-    def to_url(self, value):
-        result = re.match(self.regex, value)
-        return result.group() if result is not None else ""
 
 class ModelConverter:
     _models = "|".join(MODEL_NAMES)

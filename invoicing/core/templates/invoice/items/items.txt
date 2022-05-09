@@ -1,0 +1,3 @@
+{% load percentage %}{% load dollar %}{{ invoice_items_label|upper }}
+{% for item in items %}
+- {{ item.quantity|percentage }}x {{ item.sku }} @ ${{ item.cost|dollar }} = ${{ item.total|dollar }}{% endfor %}

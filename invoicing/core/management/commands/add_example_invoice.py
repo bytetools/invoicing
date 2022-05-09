@@ -3,6 +3,7 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.core.management.base import BaseCommand, CommandError
 from core.models import *
+from accounts.models import *
 
 class Command(BaseCommand):
   help = "Populate the database with an example invoice."
@@ -10,14 +11,24 @@ class Command(BaseCommand):
   def load_invoice(self):
     tax = Tax.objects.filter(tax_type="GST")[0]
     tax2 = Tax.objects.filter(tax_type="PST")[0]
+    surcharge_1 = Surcharge.objects.create(
+      name="Off Hours Work",
+      charge_type="P",
+      amount=0.50, # 50% surcharge
+    )
+    surcharge_2 = Surcharge.objects.create(
+      name="Starting Charge",
+      charge_type="F",
+      amount=75.00, # $75 to start work when on call
+    )
     discount_1 = Discount.objects.create(
       name="Small Business Discount",
-      discount_type="P", # percentage discount
+      charge_type="P", # percentage discount
       amount=0.1 # 10%
     )
     discount_2 = Discount.objects.create(
       name="New Client Discount",
-      discount_type="F", # fixed discount
+      charge_type="F", # fixed discount
       amount=50 # $50
     )
     ca = Country.objects.create(name="Canada", short_name="CA")
@@ -45,23 +56,28 @@ class Command(BaseCommand):
       apt_type="U",
       postal="T2E 3J3"
     )
-    client = Client.objects.create(
-      name="Simon Fraser University",
+    sfu = get_user_model().objects.create(
+      username="sfu",
+      is_active=False,
+      name_on_invoice="Simon Fraser University",
       address=addr_sfu,
     )
-    invoicer = Invoicer.objects.create(
-      name="Bytetools Technologies Inc.",
-      address=my_addr,
+    btti = get_user_model().objects.create(
+      username="btt",
+      is_active=False,
+      name_on_invoice="Bytetools Technologies Inc.",
+      email_on_invoice="finances@bytetools.ca",
+      address=my_addr
     )
-
     inv = Invoice.objects.create(
-      client=client,
-      invoicer=invoicer,
+      client=sfu,
+      invoicer=btti,
       issued_on=date.today(),
-      due_date=date.today() - relativedelta(months=1)
+      due_date=date.today() + relativedelta(months=1)
     )
     inv.taxes.set([tax, tax2])
     inv.discounts.set([discount_1, discount_2])
+    inv.surcharges.set([surcharge_1, surcharge_2])
     inv.save()
     infos = [
       ("SCRIBE", "Transcription for CMPT 215 (week 5)", 35, 12, 35*12),

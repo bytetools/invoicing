@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block extrahead %}
+<script type="text/javascript" src="{{ helcim_js_config }}"></script>
+<script type="text/javascript" src="{% static "core/js/payment.js" %}"></script>
+{% endblock %}
+{% block content %}
+<form name="helcimForm" id="helcimForm" action="" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div id="results" class="message error" aria-live="polite"></div>
+  <span class="hidden" id="helcimResults" aria-live="polite"></span>
+  <input type="button" value="Pay" onclick="javascript:process();">
+</form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load tex_safe %}
+{% load percentage %}
+{% load dollar %}
+\documentclass{article}
+\usepackage{array,booktabs,arydshln,xcolor}
+\usepackage[
+	table-number-alignment=center,
+	round-integer-to-decimal,
+	round-mode = places,
+	round-precision = 2,
+	output-decimal-marker={.},
+]{siunitx}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\begin{document}
+\newgeometry{left=15mm, right=15mm, top=10mm}
+\newcommand*\sepline{%
+  \begin{center}
+    \rule[1ex]{\textwidth}{.5pt}
+  \end{center}}
+\newcommand\VRule[1][\arrayrulewidth]{\vrule width #1}
+\ttfamily
+{% include "invoice/header/header.tex.tmpl" %}
+{% include "invoice/info/info.tex.tmpl" %}
+\sepline
+{% include "invoice/items/items.tex.tmpl" %}
+\sepline
+{% include "invoice/total/total.tex.tmpl" %}
+\sepline
+{% include "invoice/payment/payment.tex.tmpl" %}
+\end{document}

@@ -1,0 +1,12 @@
+{% load percentage %}
+{% load dollar %}
+<label class="invoice-surcharges-label">{{ surcharges_label }}</label>
+<span></span>
+{% for surcharge in surcharges %}
+  {% if surcharge.charge_type == "P" %}
+    <label class="invoice-surcharge-label" for="invoice-surcharge-{{ surcharge.uuid }}">&nbsp;&nbsp;{{ surcharge.name }} (+{{ surcharge.amount|percentage }}%)</label>
+  {% else %}
+    <label class="invoice-surcharge-label" for="invoice-surcharge-{{ surcharge.uuid }}">&nbsp;&nbsp;{{ surcharge.name }}</label>
+  {% endif %}
+  <span class="invoice-surcharge-amount right" id="invoice-surcharge-{{ surcharge.name }}">+${{ surcharge.cost|dollar }}</span>
+{% endfor %}

@@ -1,0 +1,16 @@
+{{ invoice_info_header|upper }}
+
+{{ date_label }}: {{ invoice_date }}
+{{ invoice_number_label }}: {{ invoice_number }}
+{{ customer_number_label }}: {{ customer.id }}
+{{ due_date_label }}: {{ invoice_due_date }}
+
+{{ contractor_heading|upper }}
+
+{{ company_name }}{% for c_addr,_ in address_lines %}
+{{ c_addr }}{% endfor %}
+
+{{ client_heading|upper }}
+
+{{ client_name }}{% for _,c_addr in address_lines %}
+{{ c_addr }}{% endfor %}
