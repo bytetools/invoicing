@@ -5,3 +5,5 @@ phonenumbers
 # for deployment
 uwsgi
 mysqlclient
+python-dotenv
+python-dateutil
