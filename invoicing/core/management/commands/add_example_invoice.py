@@ -80,18 +80,23 @@ class Command(BaseCommand):
     inv.surcharges.set([surcharge_1, surcharge_2])
     inv.save()
     infos = [
-      ("SCRIBE", "Transcription for CMPT 215 (week 5)", 35, 12, 35*12),
-      ("SCRIBE", "Transcription for CMPT 218 (week 5)", 35, 100, 35*100),
-      ("SCRIBE", "Transcription for LING 200 (week 5)", 35, 5, 35*5),
+      ("SCRIBE", "CMPT 215 (week 5)", 35, 12, 35*12),
+      ("SCRIBE", "CMPT 218 (week 5)", 35, 100, 35*100),
+      ("SCRIBE", "LING 200 (week 5)", 35, 5, 35*5),
     ]
+    product = Product.objects.create(
+            name="ALT Format Transcription",
+            description="Alternate Format Transcription",
+            sku="SCRIBE",
+            cost=35,
+    )
+    product.save()
     for info in infos:
       invitem = InvoiceItem.objects.create(
         invoice=inv,
-        sku=info[0],
-        description=info[1],
-        cost=info[2],
-        quantity=info[3],
-        total=info[4]
+        product=product,
+        notes=info[1],
+        quantity=info[3]
       )
       invitem.save()
     print(inv)

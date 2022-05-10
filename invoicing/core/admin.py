@@ -2,6 +2,7 @@ from .models import Invoice, InvoiceItem, Tax, Discount, InvoiceFile, Product
 from django.contrib import admin
 from django.contrib.auth.models import Permission
 from django.contrib.auth import get_user_model
+from django.utils.html import format_html
 from django.urls import reverse
 
 # Register your models here.
@@ -22,13 +23,13 @@ class InvoiceAdmin(admin.ModelAdmin):
     app_label = obj.items.all()[0]._meta.app_label
     model_name = obj.items.all()[0]._meta.model_name
 
-    url = reverse(f"admin:{app_label}_{model_name}_changelist", kwargs={"uuid": obj.uuid})
-    return f"<a href=\"{url}\">items</a>"
+    url = reverse(f"admin:{app_label}_{model_name}_changelist") + f"?invoice_id={obj.id}"
+    return format_html(f"<a href=\"{url}\">items</a>")
 
 @admin.register(InvoiceItem)
 class InvoiceItemAdmin(admin.ModelAdmin):
-  list_display = ["invoice_id", "invoice", "sku", "name", "description"]
-  search_fields = ["sku", "name", "description"]
+  list_display = ["invoice_id", "invoice"]
+  search_fields = ["invoice_id", "invoice"]
 
 @admin.register(Tax)
 class TaxAdmin(admin.ModelAdmin):

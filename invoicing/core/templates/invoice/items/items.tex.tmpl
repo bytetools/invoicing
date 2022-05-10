@@ -14,9 +14,9 @@
 \hfill \sffamily \textbf{ {{ notes_label }} } \\
 \specialrule{.5pt}{0pt}{0pt}
 {% for item in items %}
-{{ item.sku }} &
-{{ item.description }} &
-\${{ item.cost }} &
+{{ item.product.sku }} &
+{{ item.product.description }} &
+\${{ item.product.cost }} &
 {{ item.quantity }} &
 \${{ item.total }} &
 {{ item.notes }} \\

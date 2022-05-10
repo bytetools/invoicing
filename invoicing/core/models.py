@@ -8,13 +8,13 @@ from django.contrib.auth import get_user_model
 class Product(models.Model):
   uuid = models.UUIDField(default=uuid.uuid4, primary_key=False, unique=True, blank=False, null=False)
   cost = models.FloatField(blank=False, null=False)
-  sku = models.CharField(max_length=8, blank=False, null=False)
+  sku = models.CharField(max_length=8, blank=False, null=False, unique=True)
   name = models.CharField(max_length=128, blank=False, null=False)
   description = models.CharField(max_length=64, blank=True, null=False)
   note = models.CharField(max_length=32, blank=True)
 
   def __str__(self):
-    return f"{self.name}"
+    return f"{self.sku}"
 
 class AdditionalCharge(models.Model):
   CHARGE_TYPE_CHOICES = [
@@ -76,13 +76,12 @@ class Invoice(models.Model):
 class InvoiceItem(models.Model):
   uuid = models.UUIDField(default=uuid.uuid4, primary_key=False, unique=True, blank=False, null=False)
   invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, related_name="items")
-  name = models.CharField(max_length=128)
-  description = models.CharField(max_length=128)
-  sku = models.CharField(max_length=8)
-  cost = models.FloatField()
+  product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name="invoices")
   quantity = models.FloatField()
-  total = models.FloatField()
   notes = models.CharField(max_length=256, blank=True, null=False, default="")
+
+  def total(self):
+    return self.product.cost * self.quantity
 
 class InvoiceFile(models.Model):
   FILE_TYPE = [

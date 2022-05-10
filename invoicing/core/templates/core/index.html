@@ -1,5 +1,12 @@
 {% extends "core/base.html" %}
 
 {% block content %}
-Hello
+<ul>
+{% for invoice in invoices %}
+<li>{{ invoice }} -- 
+<a href="{% url "pdf" invoice.uuid %}">PDF</a>
+<a href="{% url "html" invoice.uuid %}">HTML</a>
+<a href="{% url "txt" invoice.uuid %}">TXT</a>
+{% endfor %}
+</ul>
 {% endblock %}

@@ -90,7 +90,7 @@ def _create_invoice_vars(invoice_uuid, request):
     return ({}, True)
   
   my_addr = inv.invoicer.address
-  total = sum([ii.total for ii in inv.items.all()])
+  total = sum([ii.total() for ii in inv.items.all()])
   after_surcharge_total, surcharges = _handle_charges(total, inv.surcharges.all(), negative=False)
   after_discount_total, discounts = _handle_charges(after_surcharge_total, inv.discounts.all(), negative=True)
   final, taxes = _handle_taxes(after_discount_total, inv.taxes.all())
@@ -153,7 +153,9 @@ def txt(request, invoice_uuid):
   return HttpResponse(invoice_txt, content_type="text/plain")
 
 def index(request):
-  return render(request, "core/index.html", {})
+    return render(request, "core/index.html",
+        {"invoices": Invoice.objects.all()}
+    )
 
 @login_required
 def list(request):
