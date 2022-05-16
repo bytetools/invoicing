@@ -1,7 +1,12 @@
 <nav>
+{% if request.user.is_authenticated %}
   {% for model_name in model_names %}
     <a href="{% url 'read_model' model_name %}">{{ model_name }}</a><br>
   {% endfor %}
-  <a href="{% url 'admin:login' %}">Admin</a>
+  <a href="{% url "index" %}">Home</a><br>
+  <a href="{% url 'admin:login' %}">Admin</a><br>
+  <a href="{% url "logout" %}">Log out</a>
+{% else %}
   <a href="{% url "login" %}">Login</a>
+{% endif %}
 </nav>

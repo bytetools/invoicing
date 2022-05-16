@@ -1,12 +1,17 @@
 {% extends "core/base.html" %}
 
 {% block content %}
+{% if request.user.is_authenticated %}
 <ul>
 {% for invoice in invoices %}
 <li>{{ invoice }} -- 
 <a href="{% url "pdf" invoice.uuid %}">PDF</a>
 <a href="{% url "html" invoice.uuid %}">HTML</a>
 <a href="{% url "txt" invoice.uuid %}">TXT</a>
+</li>
 {% endfor %}
 </ul>
+{% else %}
+Please login to view information.
+{% endif %}
 {% endblock %}
