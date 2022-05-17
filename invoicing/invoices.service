@@ -1,0 +1,23 @@
+[Unit]
+# basic description of service; replace with legit description
+Description=A uWSGI service for Bytetools Invoicing System
+
+[Service]
+# change lowercase "user" to the user which will be running the program: this is usually the one whoes home directory the project is in
+User=invoices
+# change to where the directory of the project is
+WorkingDirectory=/home/invoices/invoicing/invoicing
+# leave Type= and RemainAfterExit= alone; these specify the type of program that is being run
+Type=simple
+RemainAfterExit=yes
+# replace "uwsgi" with output of `which uwsgi`; this command will not work the way it is
+# also, replace myapp.sock with whatever your socket should be
+ExecStart=/home/invoices/invoicing/invoicing/uwsgi -s /tmp/invoices.sock --manage-script-name --mount /=app:app
+# instructions on how to kill the process
+ExecStop=/bin/kill -HUP $MAINPID
+# if process dies, should you restart it? leave it as always to auto restart 
+Restart=always
+
+[Install]
+# WantedBy=multi-user.target allows it to be enabled with systemctl to start on boot
+WantedBy=multi-user.target
