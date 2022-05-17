@@ -10,5 +10,6 @@ ESCAPE_LIST = [
 def tex_safe(string):
   final_string = string
   for escape_char in ESCAPE_LIST:
-    final_string.replace(escape_char, "\\" + escape_char)
+    final_string = final_string.replace(escape_char, "\\" + escape_char)
+  print(final_string)
   return final_string
