@@ -1,4 +1,4 @@
-{% load tex_safe %}\Large \begin{center}
+{% load dollar %}{% load percentage %}{% load tex_safe %}\Large \begin{center}
 \textbf{ {{ invoice_items_label|tex_safe }} }\\ 
 \end{center}
 \normalsize
@@ -16,9 +16,9 @@
 {% for item in items %}
 {{ item.product.sku }} &
 {{ item.product.description|tex_safe }} &
-\${{ item.product.cost }} &
-{{ item.quantity }} &
-\${{ item.total }} &
+\${{ item.product.cost|dollar }} &
+{{ item.quantity|percentage }} &
+\${{ item.total|dollar }} &
 {{ item.notes|tex_safe }} \\
 \specialrule{.5pt}{0pt}{0pt}
 {% endfor %}
