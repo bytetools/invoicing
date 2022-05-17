@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from core.models import Tax
+from invoices.models import Tax
 
 class Command(BaseCommand):
   help = "Populate the database with an example invoice."

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from core.models import Invoice
+from invoices.models import Invoice
 
 # Create your models here.
 class EmailAttempt(models.Model):

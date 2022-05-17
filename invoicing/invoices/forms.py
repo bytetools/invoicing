@@ -1,5 +1,5 @@
 from datetime import date
-from .models import Invoice, InvoiceItem, Tax, Product
+from invoices.models import Invoice, InvoiceItem, Tax, Product
 from accounts.models import Country, Region, Municipality, Address
 from django import forms
 from django.conf import settings
