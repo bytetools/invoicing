@@ -29,9 +29,11 @@ load_dotenv(find_dotenv())
 SECRET_KEY = 'django-insecure-dr-t)g^vlpp1=&nljej4&kptz!_7pgiilulp(+aui*352bg7%y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "invoices.bytetools.ca"
+]
 
 # Application definition
 
