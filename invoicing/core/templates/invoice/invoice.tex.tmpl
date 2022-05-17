@@ -1,6 +1,7 @@
 {% load tex_safe %}
 {% load percentage %}
 {% load dollar %}
+{% autoescape off %}
 \documentclass{article}
 \usepackage{array,booktabs,arydshln,xcolor}
 \usepackage[
@@ -37,4 +38,4 @@
 {% include "invoice/total/total.tex.tmpl" %}
 \sepline
 {% include "invoice/payment/payment.tex.tmpl" %}
-\end{document}
+\end{document}{% endautoescape %}
