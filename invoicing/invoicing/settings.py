@@ -88,8 +88,12 @@ WSGI_APPLICATION = 'invoicing.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "invoices",
+        "CONN_MAX_AGE": 36000,
+        "OPTIONS": {
+            "read_default_file": "/home/invoices/invoicing/invoicing/db.cnf"
+        }
     }
 }
 
@@ -116,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Edmonton'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -142,7 +146,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PDF_AND_LATEX_ROOT = "./pdf_latex"
 
 # base url for url generation in emails, pdfs and HTML invoices. NO LEADING SLASH
-BASE_URL = "http://localhost:8000"
+BASE_URL = "https://invoices.bytetools.ca"
 
 # credit surcharge due to fees: this is set to 3% as that is just over the paypal/stripe/square fee schedule for credit cards (2.90% as of May 2022)
 # NOTE: helcim, which is the payment system used by defualt for this project, uses the "interchange plus" fee structure which makes it just over 2% -- around 2.35% +/-0.5% as of May 2022
