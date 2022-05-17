@@ -92,5 +92,5 @@ class InvoiceFile(models.Model):
   ]
   uuid = models.UUIDField(default=uuid.uuid4, primary_key=False, unique=True, blank=False, null=False)
   invoice = models.ForeignKey(Invoice, blank=False, null=False, on_delete=models.PROTECT)
-  file = models.FileField(blank=False, null=False, max_length=10*1024*1024)
+  file = models.FileField(blank=False, null=False)
   file_type = models.CharField(max_length=1, choices=FILE_TYPE, blank=False, null=False, editable=False)
