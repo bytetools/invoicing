@@ -154,7 +154,7 @@ BASE_URL = "https://invoices.bytetools.ca"
 CREDIT_SURCHARGE = 0.03
 
 # set up invoice information which is considered static in the template; this can be changed for various locales, languages, etc.
-ETF_EMAIL = "payments@example.com"
+ETF_EMAIL = "finances@bytetools.ca"
 INVOICE_VARS = {
   "sku_label": "SKU",
   "description_label": "Description",
