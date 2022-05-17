@@ -1,4 +1,4 @@
-from .converters import MODEL_NAMES
+from invoices.converters import MODEL_NAMES
 
 def nav(request):
   nav_dict = {

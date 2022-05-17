@@ -2,7 +2,7 @@ import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.core.management.base import BaseCommand, CommandError
-from core.models import *
+from invoices.models import *
 from accounts.models import *
 
 class Command(BaseCommand):

@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("", include("core.urls")),
+    path("invoice/", include("invoices.urls")),
+    #path("quote/", include("quotes.urls")),
     path("payment/", include("payment.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path('admin/', admin.site.urls),

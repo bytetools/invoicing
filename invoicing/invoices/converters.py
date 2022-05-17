@@ -1,6 +1,6 @@
 import re
-from core.models import Product, Invoice, InvoiceItem, Tax, Address
-from core.forms import ProductForm, InvoiceForm, InvoiceItemForm, TaxForm, AddressForm, CountryForm, RegionForm, MunicipalityForm
+from invoices.models import Product, Invoice, InvoiceItem, Tax, Address
+from invoices.forms import ProductForm, InvoiceForm, InvoiceItemForm, TaxForm, AddressForm, CountryForm, RegionForm, MunicipalityForm
 from accounts.models import Country, Region, Municipality
 
 MODELS = [
