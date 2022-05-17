@@ -77,7 +77,7 @@ class Invoice(models.Model):
   taxes = models.ManyToManyField(Tax, related_name="invoices", blank=True)
   discounts = models.ManyToManyField(Discount, related_name="invoices", blank=True)
   surcharges = models.ManyToManyField(Surcharge, related_name="invoices", blank=True)
-  status = models.CharField(max_length=1, default="C", blank=False, null=False)
+  status = models.CharField(max_length=1, blank=False, null=False)
 
   def __str__(self):
     return f"{self.client.name_on_invoice} #{self.id} ({self.issued_on})"
