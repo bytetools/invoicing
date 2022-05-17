@@ -1,25 +1,25 @@
-\Large \begin{center}
-\textbf{ {{ invoice_items_label }} }\\ 
+{% load tex_safe %}\Large \begin{center}
+\textbf{ {{ invoice_items_label|tex_safe }} }\\ 
 \end{center}
 \normalsize
 \begin{tabularx}{\linewidth}{
   |c|c|S|S[round-precision=0]|S|X|
 }
 \specialrule{.5pt}{0pt}{0pt}
-\sffamily \textbf{ {{ sku_label }} } &
-\sffamily \textbf{ {{ description_label }} } &
-\sffamily \textbf{ {{ unit_price_label }} } &
-\sffamily \textbf{ {{ quantity_label }} } &
-\sffamily \textbf{ {{ cost_label }} } &
-\hfill \sffamily \textbf{ {{ notes_label }} } \\
+\sffamily \textbf{ {{ sku_label|tex_safe }} } &
+\sffamily \textbf{ {{ description_label|tex_safe }} } &
+\sffamily \textbf{ {{ unit_price_label|tex_safe }} } &
+\sffamily \textbf{ {{ quantity_label|tex_safe }} } &
+\sffamily \textbf{ {{ cost_label|tex_safe }} } &
+\hfill \sffamily \textbf{ {{ notes_label|tex_safe }} } \\
 \specialrule{.5pt}{0pt}{0pt}
 {% for item in items %}
 {{ item.product.sku }} &
-{{ item.product.description }} &
+{{ item.product.description|tex_safe }} &
 \${{ item.product.cost }} &
 {{ item.quantity }} &
 \${{ item.total }} &
-{{ item.notes }} \\
+{{ item.notes|tex_safe }} \\
 \specialrule{.5pt}{0pt}{0pt}
 {% endfor %}
 \end{tabularx}
